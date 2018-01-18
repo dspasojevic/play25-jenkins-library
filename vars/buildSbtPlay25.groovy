@@ -14,7 +14,7 @@ def call(Map config) {
   container('build-sbt-play25') {
     stage('Prepare environment') {
       writeFile(file: "/home/jenkins/sbt.boot.properties", 
-        text: libraryResource('au/com/agiledigital/jenkins-pipelines/build-sbt-play25'))
+        text: libraryResource('au/com/agiledigital/jenkins-pipelines/build-sbt-play25/sbt.boot.properties'))
     }
     stage('Fetch dependencies') {
       sh 'ls *.conf'
