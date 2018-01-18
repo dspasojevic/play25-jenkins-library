@@ -13,7 +13,8 @@ def call(Map config) {
 
   container('build-sbt-play25') {
     stage('Fetch dependencies') {
-      sh 'ls "${WORKSPACE}/"*.conf'
+      sh 'sleep 10000'
+      sh 'ls "${WORKSPACE}/*.conf"'
       sbt "update"
     }
     stage('Clean') {
