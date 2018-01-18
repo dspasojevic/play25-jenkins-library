@@ -30,7 +30,7 @@ def call(Map config) {
       // TODO: Allow ${SETTINGS_CONTEXT} to be overriden
       withEnv(["SUB_PATH=${config.baseDir}/modules/api/"]) {
         // From https://stash.agiledigital.com.au/projects/MCP/repos/docker-builder/browse/builders/play2-multi-build/build.sh
-        sh """
+        sh '''
         |# Insert the project.conf, environment.conf, etc into the deployable.
         |cp "${WORKSPACE}/"*.conf "${SUB_PATH}conf"
         |
@@ -48,14 +48,14 @@ def call(Map config) {
         |
         |cat "${SUB_PATH}conf/combined.conf"
         |
-        |""".stripMargin()
+        |'''.stripMargin()
       }
     }
     stage('Package') {
       sbt "dist"
     }
   }
-  
+
   stage('Archive to Jenkins') {
     archiveArtifacts config.artifactPath
   }
