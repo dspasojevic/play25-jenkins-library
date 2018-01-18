@@ -6,7 +6,7 @@ def call(Map config) {
   final sbt = { cmd ->
     ansiColor('xterm') {
       dir(config.baseDir) {
-        sh "sbt -batch -v -Dsbt.repository.config=${env.HOME}/.sbt/repositories \"${cmd}\""
+        sh "sbt -batch -v \"${cmd}\""
       }
     }
   }
