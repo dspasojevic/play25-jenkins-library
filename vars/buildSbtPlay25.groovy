@@ -6,7 +6,7 @@ def call(Map config) {
   final sbt = { cmd ->
     ansiColor('xterm') {
       dir(config.baseDir) {
-        sh "sbt -batch -v \"${cmd}\""
+        sh "sbt -batch -sbt-dir /home/jenkins/.sbt -v \"${cmd}\""
       }
     }
   }
@@ -15,9 +15,6 @@ def call(Map config) {
     stage('Fetch dependencies') {
       sh 'ls *.conf'
       sbt "update"
-    }
-    stage('Clean') {
-      sbt "clean"
     }
     stage('Compile') {
       sbt "compile"
