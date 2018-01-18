@@ -14,7 +14,7 @@ def call(Map config) {
   container('build-sbt-play25') {
     stage('Fetch dependencies') {
       sh 'sleep 10000'
-      sh 'ls "${WORKSPACE}/*.conf"'
+      sh 'ls *.conf'
       sbt "update"
     }
     stage('Clean') {
@@ -33,7 +33,7 @@ def call(Map config) {
         // From https://stash.agiledigital.com.au/projects/MCP/repos/docker-builder/browse/builders/play2-multi-build/build.sh
         sh '''
         |# Insert the project.conf, environment.conf, etc into the deployable.
-        |cp "${WORKSPACE}/"*.conf "${SUB_PATH}conf"
+        |cp *.conf "${SUB_PATH}conf"
         |
         |# Create the conf file that ties the application.conf and environment.conf together.
         |echo 'include "application.conf"' > "${SUB_PATH}conf/combined.conf"
