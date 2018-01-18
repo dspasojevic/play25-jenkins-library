@@ -6,12 +6,16 @@ def call(Map config) {
   final sbt = { cmd ->
     ansiColor('xterm') {
       dir(config.baseDir) {
-        sh "sbt -batch -sbt-dir /home/jenkins/.sbt -v \"${cmd}\""
+        sh "sbt -batch -sbt-dir /home/jenkins/.sbt -Dsbt.repository.config=/home/jenkins/sbt.boot.properties -v \"${cmd}\""
       }
     }
   }
 
   container('build-sbt-play25') {
+    stage('Prepare environment') {
+      writeFile(file: "/home/jenkins/sbt.boot.properties", 
+        text: libraryResource('au/com/agiledigital/jenkins-pipelines/build-sbt-play25'))
+    }
     stage('Fetch dependencies') {
       sh 'ls *.conf'
       sbt "update"
