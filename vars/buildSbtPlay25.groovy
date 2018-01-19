@@ -2,6 +2,13 @@
  * Toolform-compatible Jenkins 2 Pipeline build step for Play Framework 2.6 based components built using SBT
  */
 
+
+
+// baseDir: "server",
+// project: "source-ip",
+// component: "public",
+// buildNumber: buildNumber
+
 def call(Map config) {
   final sbt = { cmd ->
     ansiColor('xterm') {
@@ -10,6 +17,9 @@ def call(Map config) {
       }
     }
   }
+
+  def fullComponentName = "${config.project}-${config.component}"
+  def buildVersion = config.buildNumber
 
   container('build-sbt-play25') {
     stage('Prepare environment') {
@@ -53,11 +63,11 @@ def call(Map config) {
       }
     }
     stage('Package') {
-      sbt "dist"
+      sbt ";project ${buildVersion}; set name := \"${fullComponentName}\"; set version: \"${buildVersion}\"; dist"
     }
   }
 
   stage('Archive to Jenkins') {
-    archiveArtifacts config.artifactPath
+    archiveArtifacts "${config.baseDir}/modules/${config.component}/target/universal/${fullComponentName-${buildVersion}.zip"
   }
 }
