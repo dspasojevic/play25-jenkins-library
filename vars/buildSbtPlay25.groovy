@@ -68,6 +68,6 @@ def call(Map config) {
   }
 
   stage('Archive to Jenkins') {
-    archiveArtifacts "${config.baseDir}/modules/${config.component}/target/universal/${fullComponentName-${buildVersion}.zip"
+    archiveArtifacts "${config.baseDir}/modules/${config.component}/target/universal/${fullComponentName}-${buildVersion}.zip"
   }
 }
