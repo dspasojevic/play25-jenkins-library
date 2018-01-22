@@ -47,7 +47,7 @@ def call(Map config) {
     }
 
     stage('Inject configuration') {
-      def subPath = "${config.baseDir}/modules/${component}/"
+      def subPath = "${config.baseDir}/modules/${config.component}/"
       // TODO: Allow ${SETTINGS_CONTEXT} to be overriden
         // From https://stash.agiledigital.com.au/projects/MCP/repos/docker-builder/browse/builders/play2-multi-build/build.sh
       sh """
