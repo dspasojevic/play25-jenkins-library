@@ -19,21 +19,32 @@ def call(Map config) {
   def buildVersion = config.buildNumber
 
   container('build-sbt-play25') {
+
+    stage('Build Details') {
+      sh "echo Project:   ${config.project}"
+      sh "echo Component: ${config.component}"
+      sh "echo BuildNumber: ${config.buildNumber}"
+    }
+
     stage('Prepare environment') {
       writeFile(file: "/home/jenkins/sbt.boot.properties", 
         text: libraryResource('au/com/agiledigital/jenkins-pipelines/build-sbt-play25/sbt.boot.properties'))
     }
+
     stage('Fetch dependencies') {
       sh 'ls *.conf'
       sbt "update"
     }
+
     stage('Compile') {
       sbt "compile"
     }
+
     stage('Test') {
-      sbt ";project ${config.project}; testOnly ** -- junitxml console"
+      sbt ";project ${config.component}; testOnly ** -- junitxml console"
       junit "${config.baseDir}/modules/**/target/test-reports/**/*.xml"
     }
+
     stage('Inject configuration') {
       // TODO: Allow ${SETTINGS_CONTEXT} to be overriden
       withEnv(["SUB_PATH=${config.baseDir}/modules/api/"]) {
@@ -60,7 +71,7 @@ def call(Map config) {
       }
     }
     stage('Package') {
-      sbt ";project ${config.project}; set name := \"${fullComponentName}\"; set version: \"${buildVersion}\"; dist"
+      sbt ";project ${config.component}; set name := \"${fullComponentName}\"; set version: \"${buildVersion}\"; dist"
     }
   }
 
