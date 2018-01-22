@@ -11,7 +11,7 @@ def call(Map config) {
     ansiColor('xterm') {
       dir(config.baseDir) {
         // todo: configure these 
-        sh "sbt -batch -sbt-dir /home/jenkins/.sbt -Dsbt.repository.config=/home/jenkins/sbt.boot.properties -Dsbt.ivy.home=/home/jenkins/.ivy2/ -Divy.home=/home/jenkins/.ivy2/ -v \"${cmd}\""
+        sh "sbt -batch -sbt-dir /home/jenkins/.sbt -Dsbt.repository.config=/home/jenkins/sbt.boot.properties -Dsbt.ivy.home=/home/jenkins/.ivy2/ -Divy.home=/home/jenkins/.ivy2/ -v \'${cmd}\'"
       }
     }
   }
@@ -71,7 +71,7 @@ def call(Map config) {
       |""".stripMargin()
     }
     stage('Package') {
-      sbt ";project ${config.component}; set name := \"${fullComponentName}\"; set version: \"${buildVersion}\"; dist"
+      sbt ";project ${config.component}; set name := \"${fullComponentName}\"; set version =: \"${buildVersion}\"; dist"
     }
   }
 
