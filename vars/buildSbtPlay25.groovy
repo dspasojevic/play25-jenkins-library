@@ -34,7 +34,7 @@ def call(Map config) {
       sbt "compile"
     }
     stage('Test') {
-      sbt "testOnly ** -- junitxml console"
+      sbt ";project ${buildVersion}; testOnly ** -- junitxml console"
       junit "${config.baseDir}/modules/**/target/test-reports/**/*.xml"
     }
     stage('Inject configuration') {
