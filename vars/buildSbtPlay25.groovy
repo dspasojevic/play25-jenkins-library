@@ -71,7 +71,7 @@ def call(Map config) {
       |""".stripMargin()
     }
     stage('Package') {
-      sbt ";project ${config.component}; set name := \"${fullComponentName}\"; set version =: \"${buildVersion}\"; dist"
+      sbt ";project ${config.component}; set name := \"${fullComponentName}\"; set version := \"${buildVersion}\"; dist"
     }
   }
 
