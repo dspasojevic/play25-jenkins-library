@@ -23,9 +23,9 @@ def call(Map config) {
   container('play25-builder') {
 
     stage('Build Details') {
-      sh "echo Project:   ${config.project}"
-      sh "echo Component: ${config.component}"
-      sh "echo BuildNumber: ${config.buildNumber}"
+      echo "Project:   ${config.project}"
+      echo "Component: ${config.component}"
+      echo "BuildNumber: ${config.buildNumber}"
     }
 
     stage('Prepare environment') {
@@ -48,7 +48,7 @@ def call(Map config) {
     }
   }
 
-  if(stage == 'dist') { 
+  if(config.stage == 'dist') { 
     container('play25-builder') {
       stage('Inject configuration') {
         // TODO: Allow ${SETTINGS_CONTEXT} to be overriden
