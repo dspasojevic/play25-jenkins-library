@@ -5,6 +5,6 @@ def call(Map config) {
   ].collect { volume -> [
       path: volume.path,
       sizeGiB: volume.sizeGiB,
-      name = "${config.project}-${volume.path.replaceAll(/[^a-zA-Z0-9]+/, '-')}"
+      name: "${config.project}-${volume.path.replaceAll(/[^a-zA-Z0-9]+/, '-')}"
   ]}
 }
