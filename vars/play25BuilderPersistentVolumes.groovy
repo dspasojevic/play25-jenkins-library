@@ -10,5 +10,5 @@ def call(Map config) {
       name: "${config.project}-home-jenkins-sbt",
       sizeGiB: 2
     ]
-  ]}
+  ]
 }
