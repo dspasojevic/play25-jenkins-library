@@ -26,6 +26,7 @@ def call(Map config) {
       echo "Project:   ${config.project}"
       echo "Component: ${config.component}"
       echo "BuildNumber: ${config.buildNumber}"
+      echo "Module: ${config.module}"
     }
 
     stage('Prepare environment') {
@@ -43,7 +44,7 @@ def call(Map config) {
     }
 
     stage('Test') {
-      sbt ";project ${config.component}; testOnly ** -- junitxml console"
+      sbt ";project ${config.get('module', config.component)}; testOnly ** -- junitxml console"
       junit "${config.baseDir}/modules/**/target/test-reports/**/*.xml"
     }
   }
@@ -74,7 +75,7 @@ def call(Map config) {
         |""".stripMargin()
       }
       stage('Package') {
-        sbt ";project ${config.component}; set name := \"${fullComponentName}\"; set version := \"${buildVersion}\"; dist"
+        sbt ";project ${config.get('module', config.component)}; set name := \"${fullComponentName}\"; set version := \"${buildVersion}\"; dist"
       }
     }
 
