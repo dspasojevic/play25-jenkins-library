@@ -32,7 +32,7 @@ def call(Map config) {
     stage('Prepare environment') {
       writeFile(file: "/home/jenkins/sbt.boot.properties", 
         text: libraryResource('au/com/agiledigital/jenkins-pipelines/build-sbt-play25/sbt.boot.properties'))
-      sh """
+      sh '''
         # Ensure that assigned uid has entry in /etc/passwd.
         if [ `id -u` -ge 10000 ]; then
             echo "Patching /etc/passwd to make ${JENKINS_USER} -> builder and `id -u` -> ${JENKINS_USER}"
@@ -41,7 +41,7 @@ def call(Map config) {
             cat /tmp/passwd > /etc/passwd
             rm /tmp/passwd
         fi
-      """
+      '''
     }
 
     stage('Fetch dependencies') {
