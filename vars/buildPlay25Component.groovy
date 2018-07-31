@@ -44,11 +44,6 @@ def call(Map config) {
       '''
     }
 
-    stage('Fetch dependencies') {
-      sh 'ls *.conf'
-      sbt "update"
-    }
-
     stage('Compile') {
       sbt "compile"
     }
