@@ -50,7 +50,11 @@ def call(Map config) {
 
     stage('Test') {
       sbt ";project ${config.get('module', config.component)}; testOnly ** -- junitxml console"
-      junit "${config.baseDir}/modules/**/target/test-reports/**/*.xml"
+      post {
+        always {
+          junit "${config.baseDir}/modules/**/target/test-reports/**/*.xml"
+        }
+      }
     }
   }
 
