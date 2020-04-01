@@ -38,7 +38,7 @@ def call(Map config) {
             echo "Patching /etc/passwd to make ${JENKINS_USER} -> builder and `id -u` -> ${JENKINS_USER}"
             cat /etc/passwd | sed -e "s/${JENKINS_USER}/builder/g" > /tmp/passwd
             echo "${JENKINS_USER}:x:`id -u`:`id -g`:,,,:/home/${JENKINS_USER}:/bin/bash" >> /tmp/passwd
-            cat /tmp/passwd > /etc/passwd
+            # cat /tmp/passwd > /etc/passwd
             rm /tmp/passwd
         fi
       '''
