@@ -37,9 +37,13 @@ def call(Map config) {
     stage('Compile') {
       sbt ";project ${config.get('module', config.component)}; compile"
     }
+    
+    stage('Compile Tests') {
+      sbt ";project ${config.get('module', config.component)}; test:compile"
+    }
 
     stage('Test') {
-      sbt ";project ${config.get('module', config.component)}; testOnly ** -- junitxml console"
+      sbt ";project ${config.get('module', config.component)}; testOnly *PatronOrderDaoTest -- junitxml console"
       junit "${config.baseDir}/modules/**/target/test-reports/**/*.xml"
     }
   }
