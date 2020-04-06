@@ -9,6 +9,7 @@ def call(Map config) {
       path: '/home/jenkins/.cache/coursier/v1'
       claimName: "${config.project}-home-jenkins-coursier",
       sizeGib: 2
+    ],
     [
       path: '/home/jenkins/.sbt',
       claimName: "${config.project}-home-jenkins-sbt",
