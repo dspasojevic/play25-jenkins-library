@@ -35,7 +35,7 @@ def call(Map config) {
     }
 
     stage('Compile') {
-      sbt "compile"
+      sbt ";project ${config.get('module', config.component)}; compile"
     }
 
     stage('Test') {
