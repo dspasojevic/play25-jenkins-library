@@ -43,7 +43,7 @@ def call(Map config) {
     }
 
     stage('Test') {
-      sbt ";project ${config.get('module', config.component)}; testOnly ** -- junitxml console"
+      sbt ";project ${config.get('module', config.component)}; testOnly *ScheduledOrderFlowTest -- junitxml console"
       
       post {
          always {
