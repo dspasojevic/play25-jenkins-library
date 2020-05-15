@@ -44,12 +44,6 @@ def call(Map config) {
 
     stage('Test') {
       sbt ";project ${config.get('module', config.component)}; testOnly *ScheduledOrderFlowTest -- junitxml console"
-      
-      post {
-         always {
-           junit "${config.baseDir}/modules/**/target/test-reports/**/*.xml"
-         }
-       }
     }
   }
 
@@ -92,6 +86,12 @@ def call(Map config) {
       sh "mv \"${fullComponentName}-${buildVersion}/bin/${fullComponentName}\" \"${fullComponentName}-${buildVersion}/bin/dist\""
       sh "tar -czvf \"${tarName}\" -C \"${fullComponentName}-${buildVersion}\" ."
       archiveArtifacts tarName
+    }
+    
+    post {
+      always {
+        junit "${config.baseDir}/modules/**/target/test-reports/**/*.xml"
+      }
     }
   }
 }
