@@ -45,7 +45,7 @@ def call(Map config) {
     stage('Test') {
       script {
         try {
-          sbt ";project ${config.get('module', config.component)}; test -- junitxml console"
+          sbt ";project ${config.get('module', config.component)}; testOnly * -- junitxml console"
         } finally {
           junit "${config.baseDir}/modules/**/target/test-reports/**/*.xml"
         }
