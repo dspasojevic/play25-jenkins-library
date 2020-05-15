@@ -11,7 +11,7 @@ def call(Map config) {
     ansiColor('xterm') {
       dir(config.baseDir) {
         // todo: configure these in a single place referred to in persistent volumes template
-        sh "sbt -batch -sbt-dir /home/jenkins/.sbt -Dsbt.repository.config=/home/jenkins/sbt.boot.properties -Dsbt.ivy.home=/home/jenkins/.ivy2/ -Divy.home=/home/jenkins/.ivy2/ -v \'${cmd}\'"
+        sh "sbt -J-Xmx2048m -batch -sbt-dir /home/jenkins/.sbt -Dsbt.repository.config=/home/jenkins/sbt.boot.properties -Dsbt.ivy.home=/home/jenkins/.ivy2/ -Divy.home=/home/jenkins/.ivy2/ -v \'${cmd}\'"
       }
     }
   }
