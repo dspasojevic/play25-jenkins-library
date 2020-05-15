@@ -87,11 +87,11 @@ def call(Map config) {
       sh "tar -czvf \"${tarName}\" -C \"${fullComponentName}-${buildVersion}\" ."
       archiveArtifacts tarName
     }
-    
-    post {
-      always {
-        junit "${config.baseDir}/modules/**/target/test-reports/**/*.xml"
-      }
+  }
+  
+  post {
+    always {
+      junit "${config.baseDir}/modules/**/target/test-reports/**/*.xml"
     }
   }
 }
