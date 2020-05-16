@@ -53,7 +53,7 @@ def call(Map config) {
     }
   }
 
-  if(config.stage == 'dist') { 
+//  if(config.stage == 'dist') { 
     container('play25-builder') {
       stage('Inject configuration') {
         // TODO: Allow ${SETTINGS_CONTEXT} to be overriden
@@ -93,6 +93,6 @@ def call(Map config) {
       sh "tar -czvf \"${tarName}\" -C \"${fullComponentName}-${buildVersion}\" ."
       archiveArtifacts tarName
     }
-  }
+  //}
   
 }
